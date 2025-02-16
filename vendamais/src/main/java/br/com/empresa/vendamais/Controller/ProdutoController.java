@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,19 @@ public class ProdutoController {
     public ResponseEntity<Produto> insertnew(@RequestBody Produto produto){
          Produto produtoinserido= produtoService.insernew(produto);
          return ResponseEntity.ok().body(produtoinserido);  
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update( @PathVariable Long id,@RequestBody Produto produto){
+        Produto produtoalterado = produtoService.update(id,produto);
+        return ResponseEntity.ok().body(produtoalterado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity <Boolean> Delete(@PathVariable Long id){
+        Boolean Flag= produtoService.delete(id);
+        return ResponseEntity.ok().body(Flag);
+
     }
 
 
